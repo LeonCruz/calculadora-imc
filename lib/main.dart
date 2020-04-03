@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController txtWeight = TextEditingController();
   TextEditingController txtHeight = TextEditingController();
   String message = 'Seu IMC';
+  Color color = Colors.grey;
 
   void clearData() {
     txtHeight.clear();
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
 
     setState(() {
       message = 'Seu IMC';
+      color = Colors.grey;
     });
   }
 
@@ -40,23 +42,31 @@ class _HomePageState extends State<HomePage> {
     double imc = weight / (height * height);
     
     String msg = '';
+    Color colorMsg;
 
     if(imc < 18) {
       msg = '${imc.toStringAsPrecision(3)} é abaixo do peso';
+      colorMsg = Colors.black;
     } else if(imc >= 18.5 && imc <= 24.9) {
       msg = '${imc.toStringAsPrecision(3)} é peso normal';
+      colorMsg = Colors.green;
     } else if(imc >= 25 && imc <= 29.9) {
       msg = '${imc.toStringAsPrecision(3)} é sobrepeso';
+      colorMsg = Colors.redAccent;
     } else if(imc >= 30 && imc <= 39.9) {
       msg = '${imc.toStringAsPrecision(3)} é obesidade grau 1';
+      colorMsg = Colors.red[400];
     } else if(imc >= 35 && imc <= 39.9) {
       msg = '${imc.toStringAsPrecision(3)} é obesidade grau 2';
+      colorMsg = Colors.red;
     } else {
       msg = '${imc.toStringAsPrecision(3)} é obesidade grau 3';
+      colorMsg = Colors.red[600];
     }
 
     setState(() {
       message = msg;
+      color = colorMsg;
     });
 
   }
@@ -73,7 +83,7 @@ class _HomePageState extends State<HomePage> {
               Spacer(),
               Container(
                 child: Text('$message',
-                    style: TextStyle(fontSize: 30.0, color: Colors.grey)),
+                    style: TextStyle(fontSize: 30.0, color: color)),
               ),
               Spacer(),
               Row(
